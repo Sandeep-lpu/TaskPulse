@@ -1,0 +1,8 @@
+.light {
+  filter: invert(1) hue-rotate(180deg);
+  background-color: #ffffff;
+}
+
+.light img {
+  filter: invert(1) hue-rotate(180deg);
+}

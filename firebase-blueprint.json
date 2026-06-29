@@ -1,0 +1,61 @@
+{
+  "databaseId": "(default)",
+  "firestoreRegion": "nam5",
+  "collections": [
+    {
+      "name": "users",
+      "path": "/users/{userId}",
+      "description": "User profiles.",
+      "securityRules": {
+        "read": "request.auth != null && request.auth.uid == userId",
+        "create": "request.auth != null && request.auth.uid == userId",
+        "update": "request.auth != null && request.auth.uid == userId",
+        "delete": "request.auth != null && request.auth.uid == userId"
+      },
+      "schema": {
+        "createdAt": "timestamp"
+      },
+      "subcollections": [
+        {
+          "name": "tasks",
+          "path": "/users/{userId}/tasks/{taskId}",
+          "description": "Tasks for the user.",
+          "securityRules": {
+            "read": "request.auth != null && request.auth.uid == userId",
+            "create": "request.auth != null && request.auth.uid == userId",
+            "update": "request.auth != null && request.auth.uid == userId",
+            "delete": "request.auth != null && request.auth.uid == userId"
+          },
+          "schema": {
+            "title": "string",
+            "deadline": "string",
+            "priority": "string",
+            "category": "string?",
+            "recurring": "string?",
+            "status": "string",
+            "estimatedDuration": "number?",
+            "createdAt": "string?",
+            "score": "number?",
+            "scheduledStart": "string?"
+          }
+        },
+        {
+          "name": "habits",
+          "path": "/users/{userId}/habits/{habitId}",
+          "description": "Habits for the user.",
+          "securityRules": {
+            "read": "request.auth != null && request.auth.uid == userId",
+            "create": "request.auth != null && request.auth.uid == userId",
+            "update": "request.auth != null && request.auth.uid == userId",
+            "delete": "request.auth != null && request.auth.uid == userId"
+          },
+          "schema": {
+            "name": "string",
+            "streak": "number",
+            "completedDays": "array<string>"
+          }
+        }
+      ]
+    }
+  ]
+}
