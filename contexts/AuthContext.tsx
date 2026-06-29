@@ -69,6 +69,43 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem('googleAccessTokenExpiry');
   };
 
+  useEffect(() => {
+    let inactivityTimer: NodeJS.Timeout;
+
+    const resetTimer = () => {
+      if (inactivityTimer) clearTimeout(inactivityTimer);
+      // Auto logout after 15 minutes of inactivity (15 * 60 * 1000)
+      inactivityTimer = setTimeout(() => {
+        if (auth.currentUser) {
+          logout();
+          alert("You have been logged out due to inactivity.");
+        }
+      }, 15 * 60 * 1000); 
+    };
+
+    if (user) {
+      const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+      
+      // Throttle the reset slightly for performance, or just clear/set timeout
+      let throttled = false;
+      const handleUserActivity = () => {
+        if (!throttled) {
+          resetTimer();
+          throttled = true;
+          setTimeout(() => { throttled = false; }, 1000); // Only reset timer at most once per second
+        }
+      };
+
+      events.forEach(event => document.addEventListener(event, handleUserActivity));
+      resetTimer();
+      
+      return () => {
+        if (inactivityTimer) clearTimeout(inactivityTimer);
+        events.forEach(event => document.removeEventListener(event, handleUserActivity));
+      };
+    }
+  }, [user]);
+
   return (
     <AuthContext.Provider value={{ user, loading, googleAccessToken, signInWithGoogle, logout }}>
       {!loading && children}
