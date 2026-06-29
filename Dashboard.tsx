@@ -18,7 +18,7 @@ import FluidBackground from './components/FluidBackground';
 import GradientText from './components/GlitchText';
 import TaskMapContext from './components/TaskMapContext';
 import { useAuth } from './contexts/AuthContext';
-import { auth, db } from './firebase';
+import { auth, db, firebaseConfig } from './firebase';
 import { signOut } from 'firebase/auth';
 import { collection, query, onSnapshot, doc, setDoc, deleteDoc, writeBatch, updateDoc, deleteField } from 'firebase/firestore';
 import { getToken } from 'firebase/messaging';
@@ -603,11 +603,14 @@ export default function Dashboard() {
     try {
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
+        const queryParams = new URLSearchParams(firebaseConfig as any).toString();
+        const swRegistration = await navigator.serviceWorker.register(`/firebase-messaging-sw.js?${queryParams}`);
         const token = await getToken(messaging, {
-          vapidKey: 'BH1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmno' // Note: This should ideally be your real VAPID key from Firebase Console
+          vapidKey: 'BH1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmno', // Note: This should ideally be your real VAPID key from Firebase Console
+          serviceWorkerRegistration: swRegistration
         }).catch(err => {
            console.log("Error with VAPID key, trying without", err);
-           return getToken(messaging); 
+           return getToken(messaging, { serviceWorkerRegistration: swRegistration }); 
         });
 
         if (token && user) {

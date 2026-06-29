@@ -11,7 +11,7 @@ if (fs.existsSync('.env.local')) {
   config();
 }
 
-const apiKey = process.env.TaskPulse || 'default_key';
+const apiKey = process.env.GROQ_API_KEY || 'default_key';
 const groq = new Groq({ apiKey });
 
 async function startServer() {
