@@ -49,7 +49,7 @@ function PlaceSearchMap({ query, userLocation }: { query: string, userLocation: 
              }
           });
           if (addedPlace) {
-             map.fitBounds(bounds, { padding: 40 });
+             map.fitBounds(bounds, 40);
           }
         } else if (userLocation) {
           map.setCenter(userLocation);

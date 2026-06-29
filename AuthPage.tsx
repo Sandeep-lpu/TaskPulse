@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import FluidBackground from './components/FluidBackground';
 import CustomCursor from './components/CustomCursor';
 import GradientText from './components/GlitchText';
-import { db } from './firebase';
+import { db, auth } from './firebase';
 import { doc, setDoc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { useAuth } from './contexts/AuthContext';
 

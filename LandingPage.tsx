@@ -19,20 +19,20 @@ import { Artist } from './types';
 // Dummy Data
 const FAQ_ITEMS = [
   {
-    question: "When and where is the TaskPulse Launch Event?",
-    answer: "The event takes place on October 15-17 at the Moscone Center in San Francisco. Doors open at 9:00 AM each day."
+    question: "What is TaskPulse?",
+    answer: "TaskPulse is an AI-powered task management and productivity dashboard designed to help you organize your daily goals, track habits, and manage projects effectively with tools like Deep Focus Mode."
   },
   {
-    question: "What logistics are provided at the venue?",
-    answer: "We provide high-speed Wi-Fi, dedicated focus zones, charging stations at every seat, and complimentary catered meals throughout the summit."
+    question: "How does the AI task prioritization work?",
+    answer: "The integrated AI analyzes your tasks based on due dates, importance, and historical completion patterns to automatically suggest which tasks you should tackle first."
   },
   {
-    question: "Is there parking available at the venue?",
-    answer: "Yes, there is a multi-level parking garage adjacent to the venue. Early bird attendees receive validated parking passes."
+    question: "Is my data synced across devices?",
+    answer: "Yes! TaskPulse uses cloud synchronization so you can access your tasks, habits, and bento dashboard from any device securely."
   },
   {
-    question: "Will the event be streamed online?",
-    answer: "All mainstage keynotes and product deep-dives will be live-streamed directly through our platform for registered virtual attendees."
+    question: "What is Deep Focus Mode?",
+    answer: "Deep Focus Mode provides a distraction-free environment with a built-in timer, task checklist, and immersive background lo-fi beats to help you concentrate on a single task."
   }
 ];
 
